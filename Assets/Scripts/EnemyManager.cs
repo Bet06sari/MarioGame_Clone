@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class EnemyManager : MonoBehaviour
     public float damage;
 
     private bool colliderBusy = false;
+
+    public Slider _slider;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        _slider.maxValue = health;
+        _slider.value = health;
     }
 
     // Update is called once per frame
@@ -54,7 +58,7 @@ public class EnemyManager : MonoBehaviour
         {
             health = 0;
         }
-
+        _slider.value = health;
         AmIDead();
     }
 
@@ -62,6 +66,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (health <= 0)
         {
+            DataManager.Instance.EnemyKilled++;
             Destroy(gameObject);
         }
     }
